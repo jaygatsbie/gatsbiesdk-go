@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	gatsbie "github.com/jaygatsbie/sdk-go"
+	gatsbie "github.com/jaygatsbie/gatsbiesdk-go"
 )
 
 func main() {
