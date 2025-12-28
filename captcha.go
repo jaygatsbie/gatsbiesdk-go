@@ -161,3 +161,100 @@ func (c *Client) SolveDatadomeSlider(ctx context.Context, req *DatadomeSliderReq
 	}
 	return &resp, nil
 }
+
+// SolveCaptchaFox solves a CaptchaFox challenge.
+func (c *Client) SolveCaptchaFox(ctx context.Context, req *CaptchaFoxRequest) (*SolveResponse[CaptchaFoxSolution], error) {
+	internal := captchaFoxRequestInternal{
+		TaskType:  "captchafox",
+		Proxy:     req.Proxy,
+		TargetURL: req.TargetURL,
+		SiteKey:   req.SiteKey,
+	}
+
+	var resp SolveResponse[CaptchaFoxSolution]
+	if err := c.doPost(ctx, "/v1/solve/captchafox", internal, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// SolveCastle solves a Castle challenge.
+func (c *Client) SolveCastle(ctx context.Context, req *CastleRequest) (*SolveResponse[CastleSolution], error) {
+	internal := castleRequestInternal{
+		TaskType:   "castle",
+		Proxy:      req.Proxy,
+		TargetURL:  req.TargetURL,
+		ConfigJSON: req.ConfigJSON,
+	}
+
+	var resp SolveResponse[CastleSolution]
+	if err := c.doPost(ctx, "/v1/solve/castle", internal, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// SolveReese84 solves an Incapsula Reese84 challenge.
+func (c *Client) SolveReese84(ctx context.Context, req *Reese84Request) (*SolveResponse[Reese84Solution], error) {
+	internal := reese84RequestInternal{
+		TaskType:     "reese84",
+		Proxy:        req.Proxy,
+		Reese84JsUrl: req.Reese84JsUrl,
+	}
+
+	var resp SolveResponse[Reese84Solution]
+	if err := c.doPost(ctx, "/v1/solve/reese84", internal, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// SolveForter solves a Forter challenge.
+func (c *Client) SolveForter(ctx context.Context, req *ForterRequest) (*SolveResponse[ForterSolution], error) {
+	internal := forterRequestInternal{
+		TaskType:    "forter",
+		Proxy:       req.Proxy,
+		TargetURL:   req.TargetURL,
+		ForterJsUrl: req.ForterJsUrl,
+		SiteID:      req.SiteID,
+	}
+
+	var resp SolveResponse[ForterSolution]
+	if err := c.doPost(ctx, "/v1/solve/forter", internal, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// SolveFuncaptcha solves a Funcaptcha (Arkose Labs) challenge.
+func (c *Client) SolveFuncaptcha(ctx context.Context, req *FuncaptchaRequest) (*SolveResponse[FuncaptchaSolution], error) {
+	internal := funcaptchaRequestInternal{
+		TaskType:      "funcaptcha",
+		Proxy:         req.Proxy,
+		TargetURL:     req.TargetURL,
+		CustomApiHost: req.CustomApiHost,
+		PublicKey:     req.PublicKey,
+	}
+
+	var resp SolveResponse[FuncaptchaSolution]
+	if err := c.doPost(ctx, "/v1/solve/funcaptcha", internal, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// SolveSBSD solves an Akamai SBSD challenge.
+func (c *Client) SolveSBSD(ctx context.Context, req *SBSDRequest) (*SolveResponse[SBSDSolution], error) {
+	internal := sbsdRequestInternal{
+		TaskType:     "sbsd",
+		Proxy:        req.Proxy,
+		TargetURL:    req.TargetURL,
+		TargetMethod: req.TargetMethod,
+	}
+
+	var resp SolveResponse[SBSDSolution]
+	if err := c.doPost(ctx, "/v1/solve/sbsd", internal, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}

@@ -159,6 +159,100 @@ type DatadomeSliderSolution struct {
 	UserAgent string `json:"ua"`
 }
 
+// CaptchaFoxRequest is the request for solving CaptchaFox challenges.
+type CaptchaFoxRequest struct {
+	Proxy     string `json:"proxy"`
+	TargetURL string `json:"target_url"`
+	SiteKey   string `json:"site_key"`
+}
+
+// CaptchaFoxCookies contains the cookies returned by CaptchaFox.
+type CaptchaFoxCookies struct {
+	BmS  string `json:"bm_s"`
+	BmSc string `json:"bm_sc"`
+}
+
+// CaptchaFoxSolution is returned when solving CaptchaFox challenges.
+type CaptchaFoxSolution struct {
+	Cookie    CaptchaFoxCookies `json:"cookie"`
+	UserAgent string            `json:"ua"`
+}
+
+// CastleConfigJSON contains the Castle configuration parameters.
+type CastleConfigJSON struct {
+	AvoidCookies bool   `json:"avoidCookies,omitempty"`
+	PK           string `json:"pk"`
+	WUrl         string `json:"wUrl"`
+	SwUrl        string `json:"swUrl"`
+}
+
+// CastleRequest is the request for solving Castle challenges.
+type CastleRequest struct {
+	Proxy      string           `json:"proxy"`
+	TargetURL  string           `json:"target_url"`
+	ConfigJSON CastleConfigJSON `json:"config_json"`
+}
+
+// CastleSolution is returned when solving Castle challenges.
+type CastleSolution struct {
+	Token     string `json:"token"`
+	UserAgent string `json:"ua"`
+}
+
+// Reese84Request is the request for solving Incapsula Reese84 challenges.
+type Reese84Request struct {
+	Proxy        string `json:"proxy"`
+	Reese84JsUrl string `json:"reese84_js_url"`
+}
+
+// Reese84Solution is returned when solving Reese84 challenges.
+type Reese84Solution struct {
+	Reese84   string `json:"reese84"`
+	UserAgent string `json:"user_agent"`
+}
+
+// ForterRequest is the request for solving Forter challenges.
+type ForterRequest struct {
+	Proxy       string `json:"proxy"`
+	TargetURL   string `json:"target_url"`
+	ForterJsUrl string `json:"forter_js_url"`
+	SiteID      string `json:"site_id"`
+}
+
+// ForterSolution is returned when solving Forter challenges.
+type ForterSolution struct {
+	Token     string `json:"token"`
+	UserAgent string `json:"ua"`
+}
+
+// FuncaptchaRequest is the request for solving Funcaptcha (Arkose Labs) challenges.
+type FuncaptchaRequest struct {
+	Proxy         string `json:"proxy"`
+	TargetURL     string `json:"target_url"`
+	CustomApiHost string `json:"custom_api_host"`
+	PublicKey     string `json:"public_key"`
+}
+
+// FuncaptchaSolution is returned when solving Funcaptcha challenges.
+type FuncaptchaSolution struct {
+	Token     string `json:"token"`
+	UserAgent string `json:"ua"`
+}
+
+// SBSDRequest is the request for solving Akamai SBSD challenges.
+type SBSDRequest struct {
+	Proxy        string `json:"proxy"`
+	TargetURL    string `json:"target_url"`
+	TargetMethod string `json:"target_method"`
+}
+
+// SBSDSolution is returned when solving SBSD challenges.
+type SBSDSolution struct {
+	BmS       string `json:"bm_s"`
+	BmSc      string `json:"bm_sc"`
+	UserAgent string `json:"ua"`
+}
+
 // internal request wrappers that include task_type
 type datadomeRequestInternal struct {
 	TaskType     string `json:"task_type"`
@@ -224,6 +318,49 @@ type cloudflareWAFRequestInternal struct {
 }
 
 type datadomeSliderRequestInternal struct {
+	TaskType     string `json:"task_type"`
+	Proxy        string `json:"proxy"`
+	TargetURL    string `json:"target_url"`
+	TargetMethod string `json:"target_method"`
+}
+
+type captchaFoxRequestInternal struct {
+	TaskType  string `json:"task_type"`
+	Proxy     string `json:"proxy"`
+	TargetURL string `json:"target_url"`
+	SiteKey   string `json:"site_key"`
+}
+
+type castleRequestInternal struct {
+	TaskType   string           `json:"task_type"`
+	Proxy      string           `json:"proxy"`
+	TargetURL  string           `json:"target_url"`
+	ConfigJSON CastleConfigJSON `json:"config_json"`
+}
+
+type reese84RequestInternal struct {
+	TaskType     string `json:"task_type"`
+	Proxy        string `json:"proxy"`
+	Reese84JsUrl string `json:"reese84_js_url"`
+}
+
+type forterRequestInternal struct {
+	TaskType    string `json:"task_type"`
+	Proxy       string `json:"proxy"`
+	TargetURL   string `json:"target_url"`
+	ForterJsUrl string `json:"forter_js_url"`
+	SiteID      string `json:"site_id"`
+}
+
+type funcaptchaRequestInternal struct {
+	TaskType      string `json:"task_type"`
+	Proxy         string `json:"proxy"`
+	TargetURL     string `json:"target_url"`
+	CustomApiHost string `json:"custom_api_host"`
+	PublicKey     string `json:"public_key"`
+}
+
+type sbsdRequestInternal struct {
 	TaskType     string `json:"task_type"`
 	Proxy        string `json:"proxy"`
 	TargetURL    string `json:"target_url"`
