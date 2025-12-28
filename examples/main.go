@@ -131,8 +131,8 @@ func solveAkamaiExample(ctx context.Context, client *gatsbie.Client) {
 	}
 
 	fmt.Printf("Success! Task ID: %s\n", resp.TaskID)
-	fmt.Printf("_abck: %s...\n", truncate(resp.Solution.Abck, 50))
-	fmt.Printf("bm_sz: %s...\n", truncate(resp.Solution.BmSz, 50))
+	fmt.Printf("_abck: %s...\n", truncate(resp.Solution.CookiesDict.Abck, 50))
+	fmt.Printf("bm_sz: %s...\n", truncate(resp.Solution.CookiesDict.BmSz, 50))
 	fmt.Printf("User-Agent: %s\n", resp.Solution.UserAgent)
 	fmt.Printf("Cost: %.4f credits\n", resp.Cost)
 	fmt.Printf("Solve Time: %.2f ms\n\n", resp.SolveTime)

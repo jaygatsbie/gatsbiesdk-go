@@ -52,13 +52,18 @@ type AkamaiRequest struct {
 	PageFP      string `json:"page_fp,omitempty"`
 }
 
-// AkamaiSolution is returned when solving Akamai challenges.
-type AkamaiSolution struct {
+// AkamaiCookies contains the cookies returned by Akamai.
+type AkamaiCookies struct {
 	Country   string `json:"Country,omitempty"`
 	UsrLocale string `json:"UsrLocale,omitempty"`
 	Abck      string `json:"_abck"`
 	BmSz      string `json:"bm_sz"`
-	UserAgent string `json:"ua"`
+}
+
+// AkamaiSolution is returned when solving Akamai challenges.
+type AkamaiSolution struct {
+	CookiesDict AkamaiCookies `json:"cookies_dict"`
+	UserAgent   string        `json:"ua"`
 }
 
 // VercelRequest is the request for solving Vercel challenges.
@@ -130,10 +135,15 @@ type CloudflareWAFRequest struct {
 	TargetMethod string `json:"target_method"`
 }
 
+// CloudflareWAFCookies contains the cookies returned by Cloudflare WAF.
+type CloudflareWAFCookies struct {
+	CfClearance string `json:"cf_clearance"`
+}
+
 // CloudflareWAFSolution is returned when solving Cloudflare WAF challenges.
 type CloudflareWAFSolution struct {
-	CfClearance string `json:"cf_clearance"`
-	UserAgent   string `json:"ua"`
+	Cookies   CloudflareWAFCookies `json:"cookies"`
+	UserAgent string               `json:"ua"`
 }
 
 // DatadomeSliderRequest is the request for solving Datadome Slider challenges.
