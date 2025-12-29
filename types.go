@@ -28,20 +28,32 @@ type DatadomeSolution struct {
 	UserAgent string `json:"ua"`
 }
 
-// RecaptchaV3Request is the request for solving reCAPTCHA v3 challenges.
-type RecaptchaV3Request struct {
-	Proxy      string `json:"proxy"`
-	TargetURL  string `json:"target_url"`
-	SiteKey    string `json:"site_key"`
-	Action     string `json:"action,omitempty"`
-	Title      string `json:"title,omitempty"`
-	Enterprise bool   `json:"enterprise,omitempty"`
+// RecaptchaRequest is the request for solving reCAPTCHA v2/v3 (Universal) challenges.
+type RecaptchaRequest struct {
+	Proxy     string `json:"proxy"`
+	TargetURL string `json:"target_url"`
+	SiteKey   string `json:"site_key"`
+	Size      string `json:"size"`
+	Title     string `json:"title"`
+	Action    string `json:"action,omitempty"`
+	Ubd       bool   `json:"ubd,omitempty"`
 }
 
-// RecaptchaV3Solution is returned when solving reCAPTCHA v3 challenges.
-type RecaptchaV3Solution struct {
-	Token     string `json:"token"`
-	UserAgent string `json:"ua"`
+// RecaptchaEnterpriseRequest is the request for solving reCAPTCHA Enterprise challenges.
+type RecaptchaEnterpriseRequest struct {
+	Proxy     string `json:"proxy"`
+	TargetURL string `json:"target_url"`
+	SiteKey   string `json:"site_key"`
+	Size      string `json:"size"`
+	Title     string `json:"title"`
+	Action    string `json:"action,omitempty"`
+	Ubd       bool   `json:"ubd,omitempty"`
+	Sa        string `json:"sa,omitempty"`
+}
+
+// RecaptchaSolution is returned when solving reCAPTCHA challenges.
+type RecaptchaSolution struct {
+	Token string `json:"token"`
 }
 
 // AkamaiRequest is the request for solving Akamai challenges.
@@ -278,14 +290,27 @@ type datadomeRequestInternal struct {
 	TargetMethod string `json:"target_method"`
 }
 
-type recaptchaV3RequestInternal struct {
-	TaskType   string `json:"task_type"`
-	Proxy      string `json:"proxy"`
-	TargetURL  string `json:"target_url"`
-	SiteKey    string `json:"site_key"`
-	Action     string `json:"action,omitempty"`
-	Title      string `json:"title,omitempty"`
-	Enterprise bool   `json:"enterprise,omitempty"`
+type recaptchaRequestInternal struct {
+	TaskType  string `json:"task_type"`
+	Proxy     string `json:"proxy"`
+	TargetURL string `json:"target_url"`
+	SiteKey   string `json:"site_key"`
+	Size      string `json:"size"`
+	Title     string `json:"title"`
+	Action    string `json:"action,omitempty"`
+	Ubd       bool   `json:"ubd,omitempty"`
+}
+
+type recaptchaEnterpriseRequestInternal struct {
+	TaskType  string `json:"task_type"`
+	Proxy     string `json:"proxy"`
+	TargetURL string `json:"target_url"`
+	SiteKey   string `json:"site_key"`
+	Size      string `json:"size"`
+	Title     string `json:"title"`
+	Action    string `json:"action,omitempty"`
+	Ubd       bool   `json:"ubd,omitempty"`
+	Sa        string `json:"sa,omitempty"`
 }
 
 type akamaiRequestInternal struct {

@@ -27,20 +27,42 @@ func (c *Client) SolveDatadome(ctx context.Context, req *DatadomeRequest) (*Solv
 	return &resp, nil
 }
 
-// SolveRecaptchaV3 solves a reCAPTCHA v3 challenge.
-func (c *Client) SolveRecaptchaV3(ctx context.Context, req *RecaptchaV3Request) (*SolveResponse[RecaptchaV3Solution], error) {
-	internal := recaptchaV3RequestInternal{
-		TaskType:   "recaptchav3",
-		Proxy:      req.Proxy,
-		TargetURL:  req.TargetURL,
-		SiteKey:    req.SiteKey,
-		Action:     req.Action,
-		Title:      req.Title,
-		Enterprise: req.Enterprise,
+// SolveRecaptcha solves a reCAPTCHA v2/v3 (Universal) challenge.
+func (c *Client) SolveRecaptcha(ctx context.Context, req *RecaptchaRequest) (*SolveResponse[RecaptchaSolution], error) {
+	internal := recaptchaRequestInternal{
+		TaskType:  "recaptcha",
+		Proxy:     req.Proxy,
+		TargetURL: req.TargetURL,
+		SiteKey:   req.SiteKey,
+		Size:      req.Size,
+		Title:     req.Title,
+		Action:    req.Action,
+		Ubd:       req.Ubd,
 	}
 
-	var resp SolveResponse[RecaptchaV3Solution]
-	if err := c.doPost(ctx, "/v1/solve/recaptchav3", internal, &resp); err != nil {
+	var resp SolveResponse[RecaptchaSolution]
+	if err := c.doPost(ctx, "/v1/solve/recaptcha", internal, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// SolveRecaptchaEnterprise solves a reCAPTCHA Enterprise challenge.
+func (c *Client) SolveRecaptchaEnterprise(ctx context.Context, req *RecaptchaEnterpriseRequest) (*SolveResponse[RecaptchaSolution], error) {
+	internal := recaptchaEnterpriseRequestInternal{
+		TaskType:  "recaptcha_enterprise",
+		Proxy:     req.Proxy,
+		TargetURL: req.TargetURL,
+		SiteKey:   req.SiteKey,
+		Size:      req.Size,
+		Title:     req.Title,
+		Action:    req.Action,
+		Ubd:       req.Ubd,
+		Sa:        req.Sa,
+	}
+
+	var resp SolveResponse[RecaptchaSolution]
+	if err := c.doPost(ctx, "/v1/solve/recaptcha-enterprise", internal, &resp); err != nil {
 		return nil, err
 	}
 	return &resp, nil

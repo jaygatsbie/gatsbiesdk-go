@@ -43,8 +43,8 @@ func main() {
 	// Example: Solve Datadome challenge
 	// solveDatadomeExample(ctx, client)
 
-	// Example: Solve reCAPTCHA v3 challenge
-	// solveRecaptchaV3Example(ctx, client)
+	// Example: Solve reCAPTCHA challenge
+	// solveRecaptchaExample(ctx, client)
 
 	// Example: Solve Akamai challenge
 	// solveAkamaiExample(ctx, client)
@@ -92,16 +92,16 @@ func solveDatadomeExample(ctx context.Context, client *gatsbie.Client) {
 	fmt.Printf("Solve Time: %.2f ms\n\n", resp.SolveTime)
 }
 
-func solveRecaptchaV3Example(ctx context.Context, client *gatsbie.Client) {
+func solveRecaptchaExample(ctx context.Context, client *gatsbie.Client) {
 	fmt.Println("Solving reCAPTCHA v3...")
 
-	resp, err := client.SolveRecaptchaV3(ctx, &gatsbie.RecaptchaV3Request{
-		Proxy:      "http://user:pass@proxy.example.com:8080",
-		TargetURL:  "https://2captcha.com/demo/recaptcha-v3",
-		SiteKey:    "6Lcyqq8oAAAAAJE7eVJ3aZp_hnJcI6LgGdYD8lge",
-		Action:     "demo_action",
-		Title:      "Google reCAPTCHA V3 demo: Sample Form with Google reCAPTCHA V3",
-		Enterprise: false,
+	resp, err := client.SolveRecaptcha(ctx, &gatsbie.RecaptchaRequest{
+		Proxy:     "http://user:pass@proxy.example.com:8080",
+		TargetURL: "https://2captcha.com/demo/recaptcha-v3",
+		SiteKey:   "6Lcyqq8oAAAAAJE7eVJ3aZp_hnJcI6LgGdYD8lge",
+		Size:      "invisible",
+		Title:     "Google reCAPTCHA V3 demo: Sample Form with Google reCAPTCHA V3",
+		Action:    "demo_action",
 	})
 
 	if err != nil {
@@ -111,7 +111,6 @@ func solveRecaptchaV3Example(ctx context.Context, client *gatsbie.Client) {
 
 	fmt.Printf("Success! Task ID: %s\n", resp.TaskID)
 	fmt.Printf("Token: %s...\n", truncate(resp.Solution.Token, 50))
-	fmt.Printf("User-Agent: %s\n", resp.Solution.UserAgent)
 	fmt.Printf("Cost: %.4f credits\n", resp.Cost)
 	fmt.Printf("Solve Time: %.2f ms\n\n", resp.SolveTime)
 }
