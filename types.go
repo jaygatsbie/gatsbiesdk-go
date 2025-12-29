@@ -93,6 +93,23 @@ type ShapeRequest struct {
 // Use the Headers map to access all solution headers.
 type ShapeSolution map[string]string
 
+// ShapeV2Request is the request for solving Shape v2 challenges.
+type ShapeV2Request struct {
+	URL       string            `json:"url"`
+	Proxy     string            `json:"proxy"`
+	Pkey      string            `json:"pkey,omitempty"`
+	ScriptURL string            `json:"script_url,omitempty"`
+	Request   map[string]string `json:"request,omitempty"`
+	Country   string            `json:"country,omitempty"`
+	Timeout   int               `json:"timeout,omitempty"`
+}
+
+// ShapeV2Solution is returned when solving Shape v2 challenges.
+type ShapeV2Solution struct {
+	Headers map[string]string      `json:"headers,omitempty"`
+	Extra   map[string]interface{} `json:"extra,omitempty"`
+}
+
 // TurnstileRequest is the request for solving Cloudflare Turnstile challenges.
 type TurnstileRequest struct {
 	Proxy     string `json:"proxy"`

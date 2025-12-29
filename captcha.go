@@ -78,7 +78,7 @@ func (c *Client) SolveVercel(ctx context.Context, req *VercelRequest) (*SolveRes
 	return &resp, nil
 }
 
-// SolveShape solves a Shape antibot challenge.
+// SolveShape solves a Shape antibot challenge (v1).
 func (c *Client) SolveShape(ctx context.Context, req *ShapeRequest) (*SolveResponse[ShapeSolution], error) {
 	internal := shapeRequestInternal{
 		TaskType:   "shape",
@@ -92,6 +92,40 @@ func (c *Client) SolveShape(ctx context.Context, req *ShapeRequest) (*SolveRespo
 
 	var resp SolveResponse[ShapeSolution]
 	if err := c.doPost(ctx, "/v1/solve/shape", internal, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// SolveShapeV2 solves a Shape antibot challenge using the v2 API with TLS fingerprinting.
+func (c *Client) SolveShapeV2(ctx context.Context, req *ShapeV2Request) (*SolveResponse[ShapeV2Solution], error) {
+	// Build metadata map for the API
+	metadata := map[string]interface{}{
+		"proxy": req.Proxy,
+	}
+	if req.Pkey != "" {
+		metadata["pkey"] = req.Pkey
+	}
+	if req.ScriptURL != "" {
+		metadata["script_url"] = req.ScriptURL
+	}
+	if len(req.Request) > 0 {
+		metadata["request"] = req.Request
+	}
+	if req.Country != "" {
+		metadata["country"] = req.Country
+	}
+	if req.Timeout > 0 {
+		metadata["timeout"] = req.Timeout
+	}
+
+	internal := map[string]interface{}{
+		"url":      req.URL,
+		"metadata": metadata,
+	}
+
+	var resp SolveResponse[ShapeV2Solution]
+	if err := c.doPost(ctx, "/v1/solve/shape-v2", internal, &resp); err != nil {
 		return nil, err
 	}
 	return &resp, nil
